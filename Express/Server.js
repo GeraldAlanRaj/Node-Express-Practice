@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -110,6 +110,21 @@ app.delete('/users/:id', deleteUser);
 db();
 
 //Start the Server
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
+});*/
+
+
+const db = require('./config/db');
+const express = require('express');
+const userRoutes = require('./routes/routes');
+
+const app = express();
+db();
+
+app.use(express.json());
+app.use('/api', userRoutes);
+
 app.listen(3000, () => {
     console.log("Server running on http://localhost:3000");
 });
