@@ -66,4 +66,20 @@ const deleteUser = async (req,res) => {
     }
 }
 
-module.exports = { readUser, createUser, updateUser, getUserById, deleteUser };
+const filterUser = async (req, res) => {
+    try{
+        const {name} = req.query;
+
+        const users = await User.find({
+      Name: { $regex: name, $options: 'i' } // case-insensitive match
+    });
+
+    res.status(200).json(users);
+
+    }
+    catch(error){
+        res.json({error : error.message});
+    }
+};
+
+module.exports = { readUser, createUser, updateUser, getUserById, deleteUser, filterUser };
